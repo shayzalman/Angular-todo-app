@@ -1,0 +1,11 @@
+.active-list, .archive-list{
+  max-height: 300px;
+  overflow: scroll;
+}
+.mat-checkbox-checked{
+  text-decoration: line-through;
+}
+.delete-icon{
+  margin: 0 11px 0 0;
+  font-size: 22px;
+}

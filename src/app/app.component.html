@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <span>{{title}}</span>
+  <span class="header-spacer"></span>
+  <mat-icon class="header-icon" aria-hidden="false" aria-label="Please authenticate" *ngIf="!user" title="Please authenticate" (click)="drawer.toggle()">account_circle</mat-icon>
+  <mat-icon class="header-icon" aria-hidden="false" aria-label="verified user" *ngIf="user" title="verified user" (click)="drawer.toggle()">verified_user</mat-icon>
+</mat-toolbar>
+
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" position="end">
+<!--    auth-->
+    <app-auth></app-auth>
+<!--    todo: categories-->
+<!--    todo: tags-->
+<!--    todo: settings-->
+  </mat-drawer>
+
+  <div class="content">
+<!--    todos component-->
+    <app-todo></app-todo>
+  </div>
+
+</mat-drawer-container>
+

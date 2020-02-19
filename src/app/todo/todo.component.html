@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-content>
+    <h2 class="h2">Todo list items</h2>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>New Todo item</mat-label>
+        <input matInput [appCompareTodo]="todos" (keydown.enter)="saveTodo($event)"
+               [formControl]="emailFormControl" [errorStateMatcher]="matcher" [maxLength]="maxlength"
+               placeholder="New assignment description...">
+        <mat-hint *ngIf="user !== null">Create a new assignment</mat-hint>
+        <mat-hint *ngIf="user === null">Please sign in to create a new assignment</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('maxlength')">
+          Please fill maximum of {{maxlength}} characters
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Please fill in your todo item
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('existing-value')">
+          This item already exist
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <mat-list class="active-list">
+      <mat-list-item *ngFor="let todo of todos | activeTodo:true">
+        <mat-checkbox
+          [name]="todo.title"
+          (click)="updateState(todo)"
+          [checked]="!todo.status"
+          [disabled]="user === null"
+          label-position="after">
+          {{todo.title}}
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
+
+    <h2 class="h2">Todo archive items</h2>
+    <mat-list class="archive-list">
+      <mat-list-item *ngFor="let todo of todos | activeTodo:false">
+        <mat-icon (click)="delete(todo._id)" class="delete-icon" aria-hidden="false" aria-label="remove from lise">delete</mat-icon>
+        <mat-checkbox
+          [checked]="!todo.status"
+          [disabled]="user === null"
+          [name]="todo.title"
+          (click)="updateState(todo)"
+          label-position="after">
+          {{todo.title}}
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>
